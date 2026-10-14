@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+foreach ([__DIR__ . '/../vendor/autoload.php', __DIR__ . '/../../../autoload.php'] as $autoload) {
+    if (is_file($autoload)) {
+        require $autoload;
+        break;
+    }
+}
+if (!class_exists(\AdelWAF\Console\Application::class)) {
+    spl_autoload_register(static function (string $class): void {
+        if (strncmp($class, 'AdelWAF\\', 8) === 0) {
+            $file = __DIR__ . '/../src/' . str_replace('\\', '/', substr($class, 8)) . '.php';
+            if (is_file($file)) {
+                require $file;
+            }
+        }
+    });
+}
+
+exit((new \AdelWAF\Console\Application())->run($argv));

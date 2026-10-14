@@ -1,0 +1,496 @@
+[
+    {
+        "id": "xss-001",
+        "category": "xss",
+        "pattern": "~<\\s*script\\b|</\\s*script~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body",
+            "uri"
+        ],
+        "message": "script tag"
+    },
+    {
+        "id": "xss-002",
+        "category": "xss",
+        "pattern": "~\\bjavascript\\s*:|\\bvbscript\\s*:|\\bdata\\s*:\\s*text/html~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body",
+            "uri"
+        ]
+    },
+    {
+        "id": "xss-003",
+        "category": "xss",
+        "pattern": "~[\\s\"'/;]on(?:abort|auxclick|blur|cancel|canplay|change|click|close|contextmenu|dblclick|drag\\w*|drop|error|focus|input|invalid|key\\w+|load\\w*|mouse\\w+|pointer\\w+|pause|play\\w*|reset|resize|scroll|select|submit|toggle|touch\\w+|unload|wheel|animation\\w+|transition\\w+|begin|end|start|hashchange|message|popstate|storage)\\s*=~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ],
+        "message": "inline event handler"
+    },
+    {
+        "id": "xss-004",
+        "category": "xss",
+        "pattern": "~<\\s*(?:iframe|object|embed|frame|frameset|applet|meta|base|link|form|svg|math|isindex)\\b~i",
+        "score": 4,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "xss-005",
+        "category": "xss",
+        "pattern": "~<\\s*(?:img|image|video|audio|body|input|details|marquee|style)\\b[^>]{0,200}(?:src|href|on\\w+|style)\\s*=~i",
+        "score": 3,
+        "paranoia": 2,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "xss-006",
+        "category": "xss",
+        "pattern": "~\\b(?:document\\.(?:cookie|write|location|domain)|window\\.location|eval\\s*\\(|\\.innerhtml\\s*=|fromcharcode\\s*\\()~i",
+        "score": 4,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "xss-007",
+        "category": "xss",
+        "pattern": "~\\b(?:alert|prompt|confirm)\\s*[(`]~i",
+        "score": 3,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "xss-008",
+        "category": "xss",
+        "pattern": "~expression\\s*\\(|-moz-binding|@import\\s+[\"']?(?:https?:|//)~i",
+        "score": 4,
+        "paranoia": 2,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "sqli-001",
+        "category": "sqli",
+        "pattern": "~\\bunion\\b(?:\\s+all)?\\s+(?:distinct\\s+)?select\\b~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "sqli-002",
+        "category": "sqli",
+        "pattern": "~['\"`)]\\s*(?:or|and|xor|\\|\\||&&)\\s*['\"`(]?\\s*[\\w@]+['\"`)]?\\s*(?:=|like|<|>|is)\\s*['\"`(]?\\s*[\\w@]+~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ],
+        "message": "tautology after quote"
+    },
+    {
+        "id": "sqli-003",
+        "category": "sqli",
+        "pattern": "~\\b(?:or|and)\\s+\\d+\\s*=\\s*\\d+\\b~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "sqli-004",
+        "category": "sqli",
+        "pattern": "~\\binformation_schema\\b|\\bmysql\\.user\\b|\\bsys\\.(?:objects|tables|columns)\\b|\\bpg_catalog\\b|\\bsqlite_master\\b~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "sqli-005",
+        "category": "sqli",
+        "pattern": "~\\b(?:sleep|benchmark|pg_sleep)\\s*\\(\\s*\\d|\\bwaitfor\\s+delay\\b|\\bdbms_pipe\\.receive_message\\b~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "sqli-006",
+        "category": "sqli",
+        "pattern": "~\\binto\\s+(?:out|dump)file\\b|\\bload_file\\s*\\(|\\bload\\s+data\\s+(?:local\\s+)?infile\\b~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "sqli-007",
+        "category": "sqli",
+        "pattern": "~[;'\"`)]\\s*(?:drop|truncate|alter|create|insert|update|delete|exec|execute)\\s+(?:table|database|from|into|set|xp_|master|user)\\b~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "sqli-008",
+        "category": "sqli",
+        "pattern": "~\\b(?:extractvalue|updatexml|json_keys|exp|name_const)\\s*\\(\\s*(?:\\d|concat|\\(|0x)~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "sqli-009",
+        "category": "sqli",
+        "pattern": "~\\bselect\\b.{1,80}\\bfrom\\b~is",
+        "score": 2,
+        "paranoia": 2,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "sqli-010",
+        "category": "sqli",
+        "pattern": "~(?:--|#)\\s*$|;\\s*--~",
+        "score": 2,
+        "paranoia": 2,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "sqli-011",
+        "category": "sqli",
+        "pattern": "~\\b(?:unhex|hex|char|concat(?:_ws)?|group_concat|load_file|ascii|substring|substr)\\s*\\(~i",
+        "score": 2,
+        "paranoia": 3,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "lfi-001",
+        "category": "lfi",
+        "pattern": "~(?:\\.\\.[/\\\\]){2,}~",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body",
+            "uri"
+        ],
+        "message": "directory traversal"
+    },
+    {
+        "id": "lfi-002",
+        "category": "lfi",
+        "pattern": "~\\.\\.[/\\\\]~",
+        "score": 3,
+        "paranoia": 2,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "lfi-003",
+        "category": "lfi",
+        "pattern": "~/etc/(?:passwd|shadow|group|hosts|issue)\\b|\\b(?:boot|win)\\.ini\\b|/proc/self/(?:environ|cmdline)|c:[/\\\\]windows~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body",
+            "uri"
+        ]
+    },
+    {
+        "id": "lfi-004",
+        "category": "lfi",
+        "pattern": "~\\b(?:php|phar|zip|expect|glob|data|input)://~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ],
+        "message": "dangerous stream wrapper"
+    },
+    {
+        "id": "rfi-001",
+        "category": "rfi",
+        "pattern": "~(?:^|[=\\s])(?:https?|ftps?)://[^\\s]+\\.(?:php\\d?|phtml|inc|txt)\\b[^\\s]*\\?*$~i",
+        "score": 3,
+        "paranoia": 2,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "rfi-002",
+        "category": "rfi",
+        "pattern": "~\\b(?:file|gopher|dict|ldap|tftp|jar|netdoc)://~i",
+        "score": 4,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "rce-001",
+        "category": "rce",
+        "pattern": "~\\b(?:system|exec|passthru|shell_exec|popen|proc_open|pcntl_exec|assert|create_function)\\s*\\(~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "rce-002",
+        "category": "rce",
+        "pattern": "~<\\?(?:php|=)|<\\?\\s~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ],
+        "message": "php open tag"
+    },
+    {
+        "id": "rce-003",
+        "category": "rce",
+        "pattern": "~(?:[;|`]|\\$\\(|&&|\\|\\|)\\s*(?:cat|ls|id|whoami|uname|wget|curl|nc|ncat|netcat|bash|sh|zsh|python\\d?|perl|ruby|php|powershell|cmd(?:\\.exe)?|chmod|chown|rm|echo|ping|nslookup)\\b(?:\\s|$|;|\\|)~i",
+        "score": 4,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "rce-004",
+        "category": "rce",
+        "pattern": "~/bin/(?:ba|z|da|c)?sh\\b|/usr/bin/(?:env|python|perl)|cmd\\.exe|powershell(?:\\.exe)?\\s+-~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "rce-008",
+        "category": "rce",
+        "pattern": "~\\b(?:wget|curl|fetch|lwp-download)\\s+(?:-\\S+\\s+)*(?:https?|ftp)://~i",
+        "score": 3,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "rce-005",
+        "category": "rce",
+        "pattern": "~\\b(?:base64_decode|gzinflate|str_rot13|gzuncompress)\\s*\\(~i",
+        "score": 3,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ]
+    },
+    {
+        "id": "rce-006",
+        "category": "rce",
+        "pattern": "~\\$\\{\\s*(?:jndi|env|sys|lower|upper|::-)[^}]*\\}~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "args",
+            "cookies",
+            "body",
+            "uri"
+        ],
+        "message": "log4shell-style expression"
+    },
+    {
+        "id": "rce-007",
+        "category": "rce",
+        "pattern": "~\\b(?:o:\\d+:\"|a:\\d+:\\{|c:\\d+:\")~i",
+        "score": 3,
+        "paranoia": 2,
+        "targets": [
+            "args",
+            "cookies",
+            "body"
+        ],
+        "message": "serialized object"
+    },
+    {
+        "id": "bot-001",
+        "category": "bot",
+        "pattern": "~sqlmap|nikto|nessus|acunetix|havij|masscan|nmap\\s*scripting|wpscan|dirbuster|gobuster|ffuf|zgrab|nuclei|openvas|w3af|arachni|netsparker|jaeles~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "headers"
+        ],
+        "names": [
+            "user-agent"
+        ],
+        "normalize": false
+    },
+    {
+        "id": "path-001",
+        "category": "probe",
+        "pattern": "~/\\.(?:env|git|svn|hg|htpasswd|htaccess|ds_store|aws|ssh|bash_history)(?:/|$|\\.)~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "uri"
+        ]
+    },
+    {
+        "id": "path-002",
+        "category": "probe",
+        "pattern": "~eval-stdin\\.php|/vendor/phpunit/|/phpunit/phpunit|/cgi-bin/.*(?:%2e|\\.\\.)|/(?:phpmyadmin|pma|myadmin)/scripts/setup\\.php~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "uri"
+        ]
+    },
+    {
+        "id": "path-003",
+        "category": "probe",
+        "pattern": "~\\.(?:bak|old|orig|save|swp|sql|sqlite|dump|tar|tgz|zip|7z|rar|log)$~i",
+        "score": 3,
+        "paranoia": 2,
+        "targets": [
+            "uri"
+        ]
+    },
+    {
+        "id": "path-004",
+        "category": "probe",
+        "pattern": "~/(?:shell|c99|r57|wso|b374k|alfa|webshell|cmd|backdoor)\\.(?:php\\d?|phtml)$~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "uri"
+        ]
+    },
+    {
+        "id": "path-005",
+        "category": "probe",
+        "pattern": "~/(?:composer\\.(?:json|lock)|package\\.json|\\.dockerenv|docker-compose\\.ya?ml|phpinfo\\.php|info\\.php)$~i",
+        "score": 3,
+        "paranoia": 2,
+        "targets": [
+            "uri"
+        ]
+    },
+    {
+        "id": "upl-001",
+        "category": "upload",
+        "pattern": "~\\.(?:php\\d?|phtml|pht|phar|shtml|cgi|pl|py|sh|exe|jsp|asp|aspx)(?:\\.|$)~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "files"
+        ],
+        "message": "executable upload"
+    },
+    {
+        "id": "upl-002",
+        "category": "upload",
+        "pattern": "~\\.(?:htaccess|htpasswd|user\\.ini)$~i",
+        "score": 5,
+        "paranoia": 1,
+        "targets": [
+            "files"
+        ]
+    }
+]

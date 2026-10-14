@@ -1,0 +1,117 @@
+{
+    "heuristics": [
+        {
+            "id": "scan-h-001",
+            "pattern": "~eval\\s*\\(\\s*(?:base64_decode|gzinflate|gzuncompress|str_rot13)\\s*\\(~i",
+            "score": 5
+        },
+        {
+            "id": "scan-h-002",
+            "pattern": "~(?:assert|eval|system|exec|passthru|shell_exec)\\s*\\(\\s*\\$_(?:GET|POST|REQUEST|COOKIE|SERVER)~i",
+            "score": 5
+        },
+        {
+            "id": "scan-h-003",
+            "pattern": "~\\$_(?:GET|POST|REQUEST|COOKIE)\\s*\\[[^\\]]+\\]\\s*\\(~i",
+            "score": 5
+        },
+        {
+            "id": "scan-h-004",
+            "pattern": "~preg_replace\\s*\\(\\s*['\"]([^\\w\\s]).*\\1[a-z]*e[a-z]*['\"]~is",
+            "score": 4
+        },
+        {
+            "id": "scan-h-005",
+            "pattern": "~(?:gzinflate|gzuncompress)\\s*\\(\\s*base64_decode\\s*\\(\\s*['\"][A-Za-z0-9+/=]{200,}~i",
+            "score": 5
+        },
+        {
+            "id": "scan-h-006",
+            "pattern": "~\\b(?:chr\\s*\\(\\s*\\d+\\s*\\)\\s*\\.\\s*){6,}~i",
+            "score": 3
+        },
+        {
+            "id": "scan-h-007",
+            "pattern": "~(?:\\\\x[0-9a-f]{2}){12,}~i",
+            "score": 3
+        },
+        {
+            "id": "scan-h-008",
+            "pattern": "~(?:move_uploaded_file|file_put_contents|fwrite)\\s*\\([^;]{0,80}\\$_(?:GET|POST|REQUEST|FILES)~i",
+            "score": 3
+        }
+    ],
+    "signatures": [
+        "b374k m1n1",
+        "Shell I</title>",
+        "SmEvK_PaThAn Shell",
+        "by C-W-M</title>",
+        "<title>azrail ",
+        "<title>punkholicshell</title>",
+        "<title>g00nshell",
+        "<title>PhpSpy Ver",
+        "Cr@zy_King</title>",
+        "<title>s72 Shell v",
+        "<title>Ru24PostWebShell -",
+        "<title>PHP Web Shell</title>",
+        "<title>lostDC - ",
+        "<title>lama's'hell v",
+        "<title>Web Shell</title>",
+        "<title>SimAttacker - ",
+        "<small>NGHshell",
+        "<title>GRP WebShell ",
+        "<title>CasuS ",
+        "by MafiABoY</title>",
+        "<title>Symlink_Sa",
+        "Developed By LameHacker",
+        "<title>Mini Shell</title>",
+        "B4TM4N SH3LL</title>",
+        ">Ajax/PHP Command Shell<",
+        "AK-74 Security Team Web-shell",
+        "ALFA TEaM Shell",
+        "Andela Yuwono Priv8 Shell",
+        "<title>Ani-Shell | India</title>",
+        "AnonymousFox",
+        "Antichat Shell</title>",
+        "Ayyildiz Tim  | AYT",
+        "<title>BloodSecurity Hackers Shell</title>",
+        "Bypass Attack Shell",
+        "[c0derz shell]",
+        "<title>Con7ext Shell V.2</title>",
+        "Crystal shell v.",
+        "<b>[ Defacing Tool Pro v",
+        "<title>Dive Shell - Emperor Hacking Team</title>",
+        "FaTaLSheLL v",
+        "<title>G-Security Webshell</title>",
+        "<title>h4ntu shell",
+        "IDBTEAM SHELLS",
+        "<title>IndoXploit</title>",
+        "<KAdot Universal Shell>",
+        ">LIFKA SHELL<",
+        "<title>Loader'z WEB shell</title>",
+        "Locus7Shell v.",
+        "<title>Lolipop.php - Edited By KingDefacer",
+        "<title> Matamu Mat </title>",
+        "<h1>.:NCC:. Shell v",
+        "PHPShell by Macker",
+        "PHPShell by MAX666",
+        "Simple PHP backdoor by DK",
+        "<title>SimShell - Simorgh Security MGZ</title>",
+        "Small Shell - Edited By KingDefacer",
+        "<title>small web shell by zaco",
+        "SoldiersofAllah Private Shell",
+        "Sosyete Safe Mode Bypass Shell",
+        "STNC&nbsp;WebShell",
+        "StresBypass",
+        "<title>SyRiAn Sh3ll",
+        "<title>Yourman.sh Mini Shell</title>",
+        "Zerion Mini Shell",
+        "<title>0byt3m1n1-V2</title>",
+        "<title>ZEROSHELL | ZEROSTORE</title>",
+        "<title>r57 shell</title>",
+        "webadmin.php</h1>",
+        "c99shell",
+        "WSO ",
+        "FilesMan"
+    ]
+}

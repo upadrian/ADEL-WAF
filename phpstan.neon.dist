@@ -1,0 +1,9 @@
+parameters:
+    level: 6
+    treatPhpDocTypesAsCertain: false
+    paths:
+        - src
+    ignoreErrors:
+        # Optional dependency (suggest): Predis is not installed in dev.
+        - '#Predis\\#'
+        - '#Offset .dir. on array.* in isset\(\) always exists#'

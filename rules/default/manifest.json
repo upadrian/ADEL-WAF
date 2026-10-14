@@ -1,0 +1,12 @@
+{
+    "name": "default",
+    "version": "2.0.0",
+    "min_engine": "2.0.0",
+    "released_at": "2026-10-14T17:15:58+00:00",
+    "files": {
+        "request.json": "4975aa1460ef5be973c6764f8b6f96b865f7c82d9163b435552bf09eaf149d8f"
+    },
+    "extra": {
+        "scanner.json": "23f150d645bd09badc614a2e7660cd2af71393f1ec12da8c36fab0fa14a24ec9"
+    }
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/upadrian/ADEL-WAF/schema/config.schema.json",
+  "title": "AdelWAF configuration (waf.json / config.d/*.json drop-ins)",
+  "type": "object",
+  "properties": {
+    "mode": { "enum": ["off", "monitor", "block"] },
+    "state_dir": { "type": ["string", "null"] },
+    "excluded_hosts": { "type": "array", "items": { "type": "string" } },
+    "excluded_paths": { "type": "array", "items": { "type": "string" } },
+    "exclusions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "param": { "type": "string" },
+          "rules": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "allowlist": { "type": "array", "items": { "type": "string" } },
+    "denylist": { "type": "array", "items": { "type": "string" } },
+    "trusted_proxies": { "type": "array", "items": { "type": "string" } },
+    "client_ip_header": { "type": "string" },
+    "storage": {
+      "type": "object",
+      "properties": {
+        "driver": { "enum": ["auto", "redis", "file", "memory", "none"] },
+        "prefix": { "type": "string" },
+        "redis": {
+          "type": "object",
+          "properties": {
+            "host": { "type": "string" },
+            "port": { "type": "integer" },
+            "socket": { "type": ["string", "null"] },
+            "password": { "type": ["string", "null"] },
+            "database": { "type": "integer" },
+            "timeout": { "type": "number" }
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "properties": {
+        "threshold": { "type": "integer", "minimum": 1 },
+        "paranoia": { "enum": [1, 2, 3] },
+        "disable": { "type": "array", "items": { "type": "string" } },
+        "scores": { "type": "object", "additionalProperties": { "type": "integer" } },
+        "custom": { "type": "array", "items": { "$ref": "#/$defs/rule" } },
+        "source": { "type": ["string", "null"] },
+        "public_keys": { "type": "array", "items": { "type": "string" } },
+        "require_signature": { "type": "boolean" },
+        "keep_versions": { "type": "integer", "minimum": 2 }
+      }
+    },
+    "limits": { "type": "object" },
+    "rate_limits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "limit", "window"],
+        "properties": {
+          "name": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1 },
+          "window": { "type": "integer", "minimum": 1 },
+          "paths": { "type": "array", "items": { "type": "string" } },
+          "methods": { "type": "array", "items": { "type": "string" } },
+          "ban": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "ban": { "type": "object" },
+    "uploads": { "type": "object" },
+    "logging": { "type": "object" },
+    "notify": { "type": "object" },
+    "response": { "type": "object" }
+  },
+  "$defs": {
+    "rule": {
+      "type": "object",
+      "required": ["id", "category", "pattern", "score", "targets"],
+      "properties": {
+        "id": { "type": "string" },
+        "category": { "type": "string" },
+        "pattern": { "type": "string", "description": "PCRE with delimiters, e.g. ~foo~i" },
+        "score": { "type": "integer", "minimum": 0, "maximum": 20 },
+        "paranoia": { "enum": [1, 2, 3] },
+        "targets": { "type": "array", "items": { "enum": ["uri", "args", "cookies", "headers", "files", "body"] } },
+        "normalize": { "type": "boolean" },
+        "names": { "type": "array", "items": { "type": "string" } },
+        "message": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+    "name": "upadrian/adel-waf",
+    "description": "Framework-agnostic, config-driven PHP Web Application Firewall for shared hosting (cPanel). Redis optional.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["waf", "firewall", "security", "cpanel", "php", "redis"],
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6",
+        "phpstan/phpstan": "^1.10"
+    },
+    "suggest": {
+        "ext-redis": "Use Redis for counters, bans and events",
+        "predis/predis": "Redis client when ext-redis is unavailable",
+        "ext-sodium": "Required to verify signed ruleset updates"
+    },
+    "autoload": {
+        "psr-4": { "AdelWAF\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "AdelWAF\\Tests\\": "tests/" }
+    },
+    "bin": ["bin/adel-waf"],
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse"
+    },
+    "config": { "sort-packages": true },
+    "minimum-stability": "stable"
+}
